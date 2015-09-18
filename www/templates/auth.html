@@ -1,0 +1,39 @@
+<ion-view view-title="Authorization Page">
+
+  <ion-content class="padding">
+
+    <h2 style="text-align: center;">Form validation example</h2><br/>
+
+    <form name="authorizationForm" novalidate="" ng-submit="signIn(authorizationForm)">
+
+      <div class="list">
+
+        <label class="item item-input" ng-class="{ 'has-errors' : authorizationForm.username.$invalid, 'no-errors' : authorizationForm.username.$valid}">
+          <span class="input-label">Username</span>
+          <input type="text" name="username" ng-model="authorization.username" ng-minlength="5" ng-maxlength="20" required>
+        </label>
+
+        <div class="error-container" ng-show="authorizationForm.username.$error" ng-messages="authorizationForm.username.$error">
+          <div ng-messages-include="templates/error-list.html"></div>
+        </div>
+
+        <label class="item item-input" ng-class="{ 'has-errors' : authorizationForm.password.$invalid && authorizationForm.$submitted, 'no-errors' : authorizationForm.password.$valid  && authorizationForm.$submitted}">
+          <span class="input-label">Password</span>
+          <input type="password" name="password" ng-model="authorization.password" ng-minlength="5" ng-maxlength="20" required>
+        </label>
+
+        <div class="error-container last-error-container" ng-show="authorizationForm.password.$error && authorizationForm.$submitted" ng-messages="authorizationForm.password.$error">
+          <div ng-messages-include="templates/error-list.html"></div>
+        </div>
+
+      </div>
+
+      <button class="button button-full button-positive" type="submit">
+        Sign In
+      </button>
+
+    </form>
+
+  </ion-content>
+
+</ion-view>
