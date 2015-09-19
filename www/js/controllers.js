@@ -51,6 +51,40 @@ angular.module('starter.controllers', [])
 
   })
 
+  .controller('FavoriteCtrl', function ($scope) {
+    $scope.items = [];
+    for (var i = 0; i < 100; i++) {
+      var item = {};
+
+      item.imgURL = './img/ionic.png';
+      item.title = 'news' + (i + 1);
+      item.content = 'news content' + (i + 1);
+
+      $scope.items.push(item);
+    }
+
+    var getItemsByPage = function(pagenumber) {
+      return $scope.items.slice((pagenumber - 1) * 10, pagenumber * 10);
+    };
+
+    var page = 1;
+    $scope.refreshItems = getItemsByPage(page);
+
+    $scope.loadMore = function() {
+      if (page === 10) {
+        return;
+      }
+      page = page + 1;
+      $scope.moreItems = getItemsByPage(page);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    };
+
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.loadMore();
+    });
+
+  })
+
   .controller('ChatsCtrl', function ($scope, Chats) {
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
