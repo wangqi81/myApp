@@ -21,9 +21,12 @@
 
   <ion-content>
     <ion-refresher
-      pulling-text="Pull to refresh..."
+      pulling-text="松开刷新..."
+      pulling-icon="ion-ios-cloud-download-outline"
+      disable-pulling-rotation="true"
       on-refresh="doRefresh()">
     </ion-refresher>
+
     <ion-list>
       <ion-item ng-repeat="item in refreshItems" class="item item-avatar">
         <img src="{{item.imgURL}}">
