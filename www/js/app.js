@@ -5,6 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+
+var appVersion = "0.0.0";
+
 var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngMessages'])
 
   .run(function ($ionicPlatform) {
@@ -20,7 +23,18 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
         // org.apache.cordova.statusbar required
         StatusBar.styleLightContent();
       }
+      cordova.getAppVersion(function(version) {
+        appVersion = version;
+      });
     });
+  })
+
+  .config(function($ionicConfigProvider) {
+    // Android defaults to top and iOS defaults to bottom
+    $ionicConfigProvider.tabs.position('bottom');
+
+    // Android defaults to left and IOS defaults to center
+    $ionicConfigProvider.navBar.alignTitle('center');
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {

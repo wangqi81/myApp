@@ -112,12 +112,14 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('MyAccountCtrl', function ($scope, $state, $stateParams) {
+  .controller('MyAccountCtrl', function ($scope, $state, $stateParams, $ionicPopup) {
     //$scope.chat = Chats.get($stateParams.chatId);
     console.log('【Controller】MyAccountCtrl Start');
     console.log($scope);
     console.log($state);
     console.log($stateParams);
+
+    $scope.appVersion = appVersion;
 
     $scope.goAuth = function () {
       $state.go('tab.auth');
