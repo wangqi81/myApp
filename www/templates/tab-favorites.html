@@ -1,0 +1,21 @@
+<ion-view view-title="Infinite Scroll Showcase">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="item in moreItems" class="item item-avatar">
+        <img src="{{item.imgURL}}">
+
+        <h2>{{item.title}}</h2>
+
+        <p>{{item.content}}</p>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll
+      ng-if="hasMoreItems"
+      icon="ion-load-c"
+      on-infinite="loadMore()"
+      distance="1%">
+    </ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>

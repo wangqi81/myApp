@@ -48,12 +48,21 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
           }
         }
       })
-      .state('tab.favorite', {
-        url: '/favorite',
+      .state('tab.slides', {
+        url: '/slides',
         views: {
-          'tab-dash': {
-            templateUrl: 'templates/tab-favorite.html',
-            controller: 'FavoriteCtrl'
+          'tab-slides': {
+            templateUrl: 'templates/tab-slides.html',
+            controller: 'SlidesCtrl'
+          }
+        }
+      })
+      .state('tab.favorites', {
+        url: '/favorites',
+        views: {
+          'tab-favorites': {
+            templateUrl: 'templates/tab-favorites.html',
+            controller: 'FavoritesCtrl'
           }
         }
       })
@@ -84,7 +93,6 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
           }
         }
       })
-
       .state('tab.myAccount', {
         url: '/myAccount',
         views: {
@@ -95,18 +103,18 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
         }
       })
 
-      .state('auth', {
+      .state('tab.auth', {
         url: '/auth',
-        //views: {
-        //  'tab-auth': {
+        views: {
+          'tab-myAccount': {
             templateUrl: 'templates/auth.html',
             controller: 'AuthCtrl'
-        //  }
-        //}
+          }
+        }
       });
 
     // if none of the above states are matched, use this as the fallback
-    //$urlRouterProvider.otherwise('/tab/dash');
-    $urlRouterProvider.otherwise('/auth');
+    $urlRouterProvider.otherwise('/tab/dash');
+    //$urlRouterProvider.otherwise('/auth');
 
   });

@@ -20,6 +20,7 @@ angular.module('starter.controllers', [])
 
     $scope.doRefresh = function() {
       if (page === 10) {
+        $scope.$broadcast('scroll.refreshComplete');
         return;
       }
       page = page + 1;
@@ -51,38 +52,39 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('FavoriteCtrl', function ($scope) {
-    $scope.items = [];
-    for (var i = 0; i < 100; i++) {
-      var item = {};
+  .controller('SlidesCtrl', function ($scope, Chats) {
+    // nothing
+  })
 
-      item.imgURL = './img/ionic.png';
-      item.title = 'news' + (i + 1);
-      item.content = 'news content' + (i + 1);
+  .controller('FavoritesCtrl', function ($scope, $ionicLoading, $timeout, Favorites) {
 
-      $scope.items.push(item);
-    }
+    $scope.hasMoreItems = false;
+    $scope.moreItems = [];
 
-    var getItemsByPage = function(pagenumber) {
-      return $scope.items.slice((pagenumber - 1) * 10, pagenumber * 10);
-    };
-
-    var page = 1;
-    $scope.refreshItems = getItemsByPage(page);
-
-    $scope.loadMore = function() {
-      if (page === 10) {
+    // when infinite-scroll called function
+    $scope.loadMore = function () {
+      console.log('[Controller FavoritesCtrl loadMore] Start');
+      if(!Favorites.getHasMoreItems()) {
+        console.log('[Controller FavoritesCtrl loadMore] no more items return.');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
         return;
       }
-      page = page + 1;
-      $scope.moreItems = getItemsByPage(page);
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+
+      $timeout(function () {
+        // 既存の内容に結合
+        $scope.moreItems = $scope.moreItems.concat(Favorites.getMoreItems());
+        console.log('[Controller FavoritesCtrl loadMore] $scope.moreItems set end');
+
+        // 初期表示で infinite-scroll が有効になってしまうので、数秒まつ
+        $scope.hasMoreItems = Favorites.getHasMoreItems();
+
+        // ページ下部の infinite-scroll を終了する。
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        console.log('[Controller FavoritesCtrl loadMore] broadcast scroll.infiniteScrollComplete end');
+      }.bind(this), 2000);
     };
-
-    $scope.$on('$stateChangeSuccess', function() {
-      $scope.loadMore();
-    });
-
+    // 初期表示
+    $scope.loadMore();
   })
 
   .controller('ChatsCtrl', function ($scope, Chats) {
@@ -118,7 +120,7 @@ angular.module('starter.controllers', [])
     console.log($stateParams);
 
     $scope.goAuth = function () {
-      $state.go('auth');
+      $state.go('tab.auth');
     };
 
   })
