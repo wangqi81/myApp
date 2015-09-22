@@ -48,6 +48,15 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
           }
         }
       })
+      .state('tab.favorite', {
+        url: '/favorite',
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/tab-favorite.html',
+            controller: 'FavoriteCtrl'
+          }
+        }
+      })
       .state('tab.chats', {
         url: '/chats',
         views: {

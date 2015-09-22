@@ -1,0 +1,17 @@
+<ion-view view-title="Favorite">
+
+    <ion-list>
+      <ion-item ng-repeat="item in moreItems" class="item item-avatar">
+        <img src="{{item.imgURL}}">
+        <h2>{{item.title}}</h2>
+        <p>{{item.content}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+  <ion-infinite-scroll
+    icon="ion-loading-c"
+    on-infinite="loadMoreData()">
+  </ion-infinite-scroll>
+
+</ion-view>
