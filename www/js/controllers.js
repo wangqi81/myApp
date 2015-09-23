@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope) {
+  .controller('DashCtrl', function ($scope, $ionicLoading) {
     $scope.items = [];
     for (var i = 0; i < 100; i++) {
       var item = {};
