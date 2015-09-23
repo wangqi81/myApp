@@ -3,3 +3,6 @@ ionic run -livereload
 
 ionic build android
 ionic emulate android
+
+
+cordova plugin add cordova-plugin-app-version
