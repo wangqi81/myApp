@@ -10,7 +10,7 @@ var appVersion = "0.0.0";
 
 var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngMessages'])
 
-  .run(function ($ionicPlatform) {
+  .run(function ($ionicPlatform, $ionicPopup) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -25,6 +25,7 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
       }
       cordova.getAppVersion(function(version) {
         appVersion = version;
+        $ionicPopup.alert({template: appVersion});
       });
     });
   })
@@ -32,6 +33,9 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
   .config(function($ionicConfigProvider) {
     // Android defaults to top and iOS defaults to bottom
     $ionicConfigProvider.tabs.position('bottom');
+
+    // Tab style. Android defaults to striped and iOS defaults to standard
+    $ionicConfigProvider.tabs.style('standard');
 
     // Android defaults to left and IOS defaults to center
     $ionicConfigProvider.navBar.alignTitle('center');
