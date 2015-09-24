@@ -46,7 +46,7 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
     // as you see, we're disabling jsScrolling to achieve this.
     // for performance improvement
     if (ionic.Platform.isAndroid()) {
-      $ionicConfigProvider.scrolling.jsScrolling(false);
+      //$ionicConfigProvider.scrolling.jsScrolling(false);
     }
 
   })
