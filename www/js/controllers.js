@@ -16,11 +16,13 @@ angular.module('starter.controllers', [])
       return $scope.items.slice((pagenumber - 1) * 10, pagenumber * 10);
     };
     var page = 1;
-    $scope.refreshItems = getItemsByPage(page);
 
     $scope.doRefresh = function() {
-      // show loading spinner
-      //$ionicLoading.show();
+      // when page is loaded first time, show spinner.
+      if (page === 1) {
+        // show loading spinner
+        $ionicLoading.show();
+      }
       // simulate ajax event
       $timeout(function(){
         if (page === 10) {
@@ -30,10 +32,10 @@ angular.module('starter.controllers', [])
           $scope.$broadcast('scroll.refreshComplete');
           return;
         }
-        page = page + 1;
         $scope.refreshItems = getItemsByPage(page);
+        page = page + 1;
         // hide loading spinner
-        //$ionicLoading.hide();
+        $ionicLoading.hide();
         // When refreshing is complete, $broadcast the 'scroll.refreshComplete' event.
         $scope.$broadcast('scroll.refreshComplete');
       }.bind(this), 2000);
@@ -56,6 +58,8 @@ angular.module('starter.controllers', [])
       $scope.moreItems = getItemsByPage(page);
         $scope.$broadcast('scroll.infiniteScrollComplete');
     };
+
+    $scope.doRefresh();
 
   })
 

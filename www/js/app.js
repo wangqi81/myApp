@@ -39,6 +39,9 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
     // Android defaults to left and IOS defaults to center
     $ionicConfigProvider.navBar.alignTitle('center');
 
+    // Back button text.
+    $ionicConfigProvider.backButton.text('Back');
+
     // Enable native scrolls for Android platform only,
     // as you see, we're disabling jsScrolling to achieve this.
     // for performance improvement

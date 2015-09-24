@@ -1,29 +1,11 @@
 <ion-view view-title="Dashboard">
-  <!--<ion-content>-->
-    <!--<div class="list">-->
-
-      <!--<div class="item item-avatar" ollection-repeat="item in items">-->
-        <!--<img src="{{item.imgURL}}">-->
-        <!--{{item.title}}-->
-        <!--<h2>{{item.title}}</h2>-->
-        <!--<p>{{item.content}}</p>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</ion-content>-->
-
-  <!--<ion-content>-->
-    <!--<ion-item class="item item-avatar" collection-repeat="item in items">-->
-      <!--<img src="{{item.imgURL}}">-->
-      <!--<h2>{{item.title}}</h2>-->
-      <!--<p>{{item.content}}</p>-->
-    <!--</ion-item>-->
-  <!--</ion-content>-->
 
   <ion-content>
     <ion-refresher
       pulling-text="松开刷新..."
       pulling-icon="ion-ios-cloud-download-outline"
       disable-pulling-rotation="true"
+      refreshing-text="加载中..."
       on-refresh="doRefresh()">
     </ion-refresher>
 
@@ -37,10 +19,7 @@
   </ion-content>
 
   <ion-infinite-scroll
-
-    icon="ion-loading-c"
     on-infinite="loadMoreData()">
   </ion-infinite-scroll>
-
 
 </ion-view>
