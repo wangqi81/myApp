@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-  .factory('Favorites', function () {
+  .factory('FavoritesService', function () {
     // Might use a resource here that returns a JSON array
 
     // Some testing data
@@ -28,7 +28,7 @@ angular.module('starter.services', [])
         console.log("[Service Favorites getMoreItems] pageNumber:" + pageNumber);
         return items.slice((pageNumber - 1) * 10, pageNumber * 10);
       },
-      getHasMoreItems: function() {
+      hasMoreItems: function() {
         return hasMoreItems;
       }
     };

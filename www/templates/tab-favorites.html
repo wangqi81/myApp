@@ -11,11 +11,14 @@
     </ion-list>
 
     <ion-infinite-scroll
-      ng-if="hasMoreItems"
+      immediate-check="false"
+      ng-if="canGetMoreItems()"
       icon="ion-load-c"
       on-infinite="loadMore()"
       distance="1%">
     </ion-infinite-scroll>
+
+    <!--<ion-infinite-scroll immediate-check="false" on-infinite="vm.localDataManager.getData()" ng-if="vm.localDataManager.canGetData()" distance="1%">-->
 
   </ion-content>
 </ion-view>

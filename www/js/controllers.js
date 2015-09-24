@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope, $ionicLoading) {
+  .controller('DashCtrl', function ($scope, $ionicLoading, $timeout) {
     $scope.items = [];
     for (var i = 0; i < 100; i++) {
       var item = {};
@@ -19,13 +19,24 @@ angular.module('starter.controllers', [])
     $scope.refreshItems = getItemsByPage(page);
 
     $scope.doRefresh = function() {
-      if (page === 10) {
+      // show loading spinner
+      //$ionicLoading.show();
+      // simulate ajax event
+      $timeout(function(){
+        if (page === 10) {
+          // hide loading spinner
+          //$ionicLoading.hide();
+          // $broadcast the 'scroll.refreshComplete' event.
+          $scope.$broadcast('scroll.refreshComplete');
+          return;
+        }
+        page = page + 1;
+        $scope.refreshItems = getItemsByPage(page);
+        // hide loading spinner
+        //$ionicLoading.hide();
+        // When refreshing is complete, $broadcast the 'scroll.refreshComplete' event.
         $scope.$broadcast('scroll.refreshComplete');
-        return;
-      }
-      page = page + 1;
-      $scope.refreshItems = getItemsByPage(page);
-      $scope.$broadcast('scroll.refreshComplete');
+      }.bind(this), 2000);
 
       //$http.get('/new-items')
       //  .success(function(newItems) {
@@ -46,25 +57,21 @@ angular.module('starter.controllers', [])
         $scope.$broadcast('scroll.infiniteScrollComplete');
     };
 
-    $scope.$on('$stateChangeSuccess', function() {
-      $scope.loadMore();
-    });
-
   })
 
   .controller('SlidesCtrl', function ($scope, Chats) {
     // nothing
   })
 
-  .controller('FavoritesCtrl', function ($scope, $ionicLoading, $timeout, Favorites) {
+  .controller('FavoritesCtrl', function ($scope, $ionicLoading, $timeout, FavoritesService) {
 
-    $scope.hasMoreItems = false;
+    var hasMoreItemsFlg = false;
     $scope.moreItems = [];
 
-    // when infinite-scroll called function
+    // infinite-scroll called function
     $scope.loadMore = function () {
       console.log('[Controller FavoritesCtrl loadMore] Start');
-      if(!Favorites.getHasMoreItems()) {
+      if(!FavoritesService.hasMoreItems()) {
         console.log('[Controller FavoritesCtrl loadMore] no more items return.');
         $scope.$broadcast('scroll.infiniteScrollComplete');
         return;
@@ -72,17 +79,26 @@ angular.module('starter.controllers', [])
 
       $timeout(function () {
         // 既存の内容に結合
-        $scope.moreItems = $scope.moreItems.concat(Favorites.getMoreItems());
+        $scope.moreItems = $scope.moreItems.concat(FavoritesService.getMoreItems());
         console.log('[Controller FavoritesCtrl loadMore] $scope.moreItems set end');
 
         // 初期表示で infinite-scroll が有効になってしまうので、数秒まつ
-        $scope.hasMoreItems = Favorites.getHasMoreItems();
+        hasMoreItemsFlg = FavoritesService.hasMoreItems();
 
-        // ページ下部の infinite-scroll を終了する。
+        // hide loading spinner
+        $ionicLoading.hide();
+
+        // When refreshing is complete, $broadcast the 'scroll.infiniteScrollComplete' event.
         $scope.$broadcast('scroll.infiniteScrollComplete');
         console.log('[Controller FavoritesCtrl loadMore] broadcast scroll.infiniteScrollComplete end');
       }.bind(this), 2000);
     };
+
+    $scope.canGetMoreItems = function () {
+      return hasMoreItemsFlg;
+    };
+    // when loading data first time, show the Loading spinner.
+    $ionicLoading.show();
     // 初期表示
     $scope.loadMore();
   })

@@ -25,7 +25,6 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
       }
       cordova.getAppVersion(function(version) {
         appVersion = version;
-        $ionicPopup.alert({template: appVersion});
       });
     });
   })
@@ -39,6 +38,14 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
 
     // Android defaults to left and IOS defaults to center
     $ionicConfigProvider.navBar.alignTitle('center');
+
+    // Enable native scrolls for Android platform only,
+    // as you see, we're disabling jsScrolling to achieve this.
+    // for performance improvement
+    if (ionic.Platform.isAndroid()) {
+      $ionicConfigProvider.scrolling.jsScrolling(false);
+    }
+
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {
