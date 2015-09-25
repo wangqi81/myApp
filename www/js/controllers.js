@@ -1,6 +1,11 @@
 angular.module('starter.controllers', [])
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  .controller('DashCtrl', function ($scope, $rootScope, $ionicLoading, $timeout) {
+    // before enter view event
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $rootScope.hideTabs = false;
+    });
 
-  .controller('DashCtrl', function ($scope, $ionicLoading, $timeout) {
     $scope.items = [];
     for (var i = 0; i < 100; i++) {
       var item = {};
@@ -62,12 +67,19 @@ angular.module('starter.controllers', [])
     $scope.doRefresh();
 
   })
-
-  .controller('SlidesCtrl', function ($scope, Chats) {
-    // nothing
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  .controller('SlidesCtrl', function ($scope, $rootScope, Chats) {
+    // before enter view event
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $rootScope.hideTabs = false;
+    });
   })
-
-  .controller('FavoritesCtrl', function ($scope, $ionicLoading, $timeout, FavoritesService) {
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  .controller('FavoritesCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, FavoritesService) {
+    // before enter view event
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $rootScope.hideTabs = false;
+    });
 
     var hasMoreItemsFlg = false;
     $scope.moreItems = [];
@@ -106,8 +118,8 @@ angular.module('starter.controllers', [])
     // 初期表示
     $scope.loadMore();
   })
-
-  .controller('ChatsCtrl', function ($scope, Chats) {
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  .controller('ChatsCtrl', function ($scope, $rootScope, Chats) {
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
@@ -115,6 +127,10 @@ angular.module('starter.controllers', [])
     //
     //$scope.$on('$ionicView.enter', function(e) {
     //});
+    // before enter view event
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $rootScope.hideTabs = false;
+    });
 
     $scope.chats = Chats.all();
     $scope.remove = function (chat) {
@@ -122,17 +138,32 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
+  .controller('ChatDetailCtrl', function ($scope, $rootScope, $stateParams, Chats) {
+    // before enter view event
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $rootScope.hideTabs = true;
+    });
+
     $scope.chat = Chats.get($stateParams.chatId);
   })
 
-  .controller('AccountCtrl', function ($scope) {
+  .controller('AccountCtrl', function ($scope, $rootScope) {
+    // before enter view event
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $rootScope.hideTabs = false;
+    });
+
     $scope.settings = {
       enableFriends: true
     };
   })
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  .controller('MyAccountCtrl', function ($scope, $rootScope, $state, $stateParams, $ionicPopup) {
+    // before enter view event
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $rootScope.hideTabs = false;
+    });
 
-  .controller('MyAccountCtrl', function ($scope, $state, $stateParams, $ionicPopup) {
     //$scope.chat = Chats.get($stateParams.chatId);
     console.log('【Controller】MyAccountCtrl Start');
     console.log($scope);
@@ -146,8 +177,13 @@ angular.module('starter.controllers', [])
     };
 
   })
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  .controller('AuthCtrl', function($scope, $rootScope, $state) {
+    // before enter view event
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $rootScope.hideTabs = true;
+    });
 
-  .controller('AuthCtrl', function($scope, $state) {
     $scope.authorization = {
       username: '',
       password : ''
