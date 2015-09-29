@@ -26,7 +26,10 @@ angular.module('starter.controllers', [])
       // when page is loaded first time, show spinner.
       if (page === 1) {
         // show loading spinner
-        $ionicLoading.show();
+        $ionicLoading.show({
+          noBackdrop: true,
+          template: 'Loading...'
+        });
       }
       // simulate ajax event
       $timeout(function(){
@@ -98,7 +101,7 @@ angular.module('starter.controllers', [])
         $scope.moreItems = $scope.moreItems.concat(FavoritesService.getMoreItems());
         console.log('[Controller FavoritesCtrl loadMore] $scope.moreItems set end');
 
-        // 初期表示で infinite-scroll が有効になってしまうので、数秒まつ
+        // whether if having more items
         hasMoreItemsFlg = FavoritesService.hasMoreItems();
 
         // hide loading spinner
@@ -114,7 +117,10 @@ angular.module('starter.controllers', [])
       return hasMoreItemsFlg;
     };
     // when loading data first time, show the Loading spinner.
-    $ionicLoading.show();
+    $ionicLoading.show({
+      noBackdrop: true,
+      template: 'Loading...'
+    });
     // 初期表示
     $scope.loadMore();
   })
