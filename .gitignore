@@ -4,3 +4,4 @@
 node_modules/
 platforms/
 npm-debug.log
+.idea/workspace.xml
