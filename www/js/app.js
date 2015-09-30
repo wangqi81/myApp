@@ -48,7 +48,7 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
     if (ionic.Platform.isAndroid()) {
       //$ionicConfigProvider.scrolling.jsScrolling(false);
     }
-
+    //$ionicConfigProvider.views.maxCache(0);
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {
@@ -133,6 +133,7 @@ var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.
 
       .state('tab.auth', {
         url: '/auth',
+        cache: false,
         views: {
           'tab-myAccount': {
             templateUrl: 'templates/auth.html',
