@@ -26,7 +26,10 @@ angular.module('starter.controllers', [])
       // when page is loaded first time, show spinner.
       if (page === 1) {
         // show loading spinner
-        $ionicLoading.show();
+        $ionicLoading.show({
+          noBackdrop: true,
+          template: 'Loading...'
+        });
       }
       // simulate ajax event
       $timeout(function(){
@@ -98,7 +101,7 @@ angular.module('starter.controllers', [])
         $scope.moreItems = $scope.moreItems.concat(FavoritesService.getMoreItems());
         console.log('[Controller FavoritesCtrl loadMore] $scope.moreItems set end');
 
-        // 初期表示で infinite-scroll が有効になってしまうので、数秒まつ
+        // whether if having more items
         hasMoreItemsFlg = FavoritesService.hasMoreItems();
 
         // hide loading spinner
@@ -114,7 +117,10 @@ angular.module('starter.controllers', [])
       return hasMoreItemsFlg;
     };
     // when loading data first time, show the Loading spinner.
-    $ionicLoading.show();
+    $ionicLoading.show({
+      noBackdrop: true,
+      template: 'Loading...'
+    });
     // 初期表示
     $scope.loadMore();
   })
@@ -158,7 +164,7 @@ angular.module('starter.controllers', [])
     };
   })
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  .controller('MyAccountCtrl', function ($scope, $rootScope, $state, $stateParams, $ionicPopup) {
+  .controller('MyAccountCtrl', function ($scope, $rootScope, $state, $stateParams, $ionicPopup, AuthService) {
     // before enter view event
     $scope.$on('$ionicView.beforeEnter', function() {
       $rootScope.hideTabs = false;
@@ -169,6 +175,11 @@ angular.module('starter.controllers', [])
     console.log($scope);
     console.log($state);
     console.log($stateParams);
+    $rootScope.$on('MyAccountCtrl:loginStatusChanged', function() {
+      $scope.loginFlg = AuthService.getLoginFlg();
+    });
+    // login flag
+    $scope.loginFlg = AuthService.getLoginFlg();
 
     $scope.appVersion = appVersion;
 
@@ -176,21 +187,51 @@ angular.module('starter.controllers', [])
       $state.go('tab.auth');
     };
 
+    $scope.logout = function() {
+      $scope.loginFlg = AuthService.setLoginFlg(false);
+    }
   })
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  .controller('AuthCtrl', function($scope, $rootScope, $state) {
+  .controller('AuthCtrl', function($scope, $rootScope, $ionicPlatform, $state, AuthService, $ionicPopup, $ionicHistory) {
     // before enter view event
     $scope.$on('$ionicView.beforeEnter', function() {
       $rootScope.hideTabs = true;
     });
 
-    $scope.authorization = {
+    $ionicPlatform.ready(function() {
+      AuthService.initDB();
+
+      // Get all birthday records from the database.
+      AuthService.getAllUsers().then(function(users) {
+        $scope.allUsers = users;
+      });
+    });
+
+    $scope.user = {
       username: '',
       password : ''
     };
+
     $scope.signIn = function(form) {
+      console.log($scope.user);
       if(form.$valid) {
-        $state.go('tab.dash');
+        if(AuthService.validUser($scope.user) === true) {
+          var alertPopup = $ionicPopup.alert({
+            template: '登陆成功。'
+          });
+          alertPopup.then(function(res) {
+            console.log('登陆成功。');
+            $state.go('tab.myAccount', {}, {location: "replace", reload: true});
+            $scope.$emit('MyAccountCtrl:loginStatusChanged');
+          });
+        } else {
+          var alertPopup = $ionicPopup.alert({
+            template: '用户名或密码不正确。'
+          });
+          alertPopup.then(function(res) {
+            console.log('登陆失败。');
+          });
+        }
       }
     };
   })
