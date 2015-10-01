@@ -4,5 +4,12 @@ ionic run -livereload
 ionic build android
 ionic emulate android
 
+#sass
+ionic setup sass
 
+#plugin
 cordova plugin add cordova-plugin-app-version
+cordova plugin add io.litehelpers.cordova.sqlitestorage
+
+#PouchDB library
+npm install -g pouchdb
