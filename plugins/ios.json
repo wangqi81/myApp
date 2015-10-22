@@ -23,6 +23,10 @@
                         {
                             "xml": "<feature name=\"AppVersion\"><param name=\"ios-package\" value=\"AppVersion\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SQLitePlugin\"><param name=\"ios-package\" value=\"SQLitePlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -53,6 +57,9 @@
             "PACKAGE_NAME": "com.ionicframework.myapp467116"
         },
         "uk.co.whiteoctober.cordova.appversion": {
+            "PACKAGE_NAME": "com.ionicframework.myapp467116"
+        },
+        "io.litehelpers.cordova.sqliteStorage": {
             "PACKAGE_NAME": "com.ionicframework.myapp467116"
         }
     },

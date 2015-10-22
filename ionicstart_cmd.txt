@@ -13,3 +13,12 @@ cordova plugin add io.litehelpers.cordova.sqlitestorage
 
 #PouchDB library
 npm install -g pouchdb
+npm install pouchdb-collate
+
+#start pouchdb server
+npm install -g pouchdb-server c
+pouchdb-server --port 5984
+
+http://localhost:5984/_utils/
+
+http://pouchdb.com/api.html#query_database

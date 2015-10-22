@@ -29,3 +29,15 @@
 .no-errors {
   border-bottom: 3px solid green;
 }
+
+/* catagory list */
+.item-small-catagory {
+  padding-left: 40px;
+}
+.item-big-catagory {
+  background-color: #f5f5f5;
+}
+
+.center{
+  text-align:center;
+}

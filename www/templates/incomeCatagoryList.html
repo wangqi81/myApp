@@ -1,32 +1,27 @@
-<ion-view view-title="MyAccount">
+<ion-view view-title="收入分类">
   <ion-content>
+    <ion-list>
+      <ion-item class="customItemPadding mlSmallerFont item-icon-left item-icon-right"
+                ng-repeat="category in incomecategories | orderBy:'categorysort' track by category.$id "
+                ng-click="handleSwipeAndTap($event, category)"
+                ng-class="{mlindent: category.categoryparent !== ''}">
+        <i class="icon ion-ios-pricetags-outline circleIconGreen"></i>
+        <!--{{ category.categoryname }}-->
+        <ion-option-button class="button-assertive" ng-click="deleteCategory(category)">
+          Delete
+        </ion-option-button>
+        <i class="icon ion-chevron-right"></i>
+      </ion-item>
+    </ion-list>
 
     <div class="list">
-
-      <div ng-show="loginFlg" class="item item-avatar item-button-right">
-          <img src="./img/ionic.png">
-          已登陆
-        <button class="button button-energized" ng-click="logout()">
-          Logout
-        </button>
-        <!--<h2>Venkman</h2>-->
-        <!--<p>Back off, man. I'm a scientist.</p>-->
-      </div>
-      <div ng-show="!loginFlg" class="item item-avatar item-button-right">
-        <img src="./img/ionic.png">
-        你还没有登录哦
-        <button class="button button-energized" ng-click="goAuth()">
-          登录
-        </button>
-        <!--<h2>Venkman</h2>-->
-        <!--<p>Back off, man. I'm a scientist.</p>-->
-      </div>
-
       <div class="item item-divider">
-        设置
+        餐饮
       </div>
 
-      <a class="item item-icon-left " href="#/tab/expenseCatagoryList">
+
+
+      <a class="item item-icon-left " href="#">
         <i class="icon ion-android-menu"></i>
         收支分类
         <span class="item-note right">></span>

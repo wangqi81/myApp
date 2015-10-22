@@ -8,142 +8,163 @@
 
 var appVersion = "0.0.0";
 
-var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngMessages'])
+var myApp = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngMessages']);
 
-  .run(function ($ionicPlatform, $ionicPopup) {
-    $ionicPlatform.ready(function () {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        cordova.plugins.Keyboard.disableScroll(true);
+myApp.run(function ($ionicPlatform, $ionicPopup) {
+  $ionicPlatform.ready(function () {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
 
-      }
-      if (window.StatusBar) {
-        // org.apache.cordova.statusbar required
-        StatusBar.styleLightContent();
-      }
-      cordova.getAppVersion(function(version) {
-        appVersion = version;
-      });
-    });
-  })
-
-  .config(function($ionicConfigProvider) {
-    // Android defaults to top and iOS defaults to bottom
-    $ionicConfigProvider.tabs.position('bottom');
-
-    // Tab style. Android defaults to striped and iOS defaults to standard
-    $ionicConfigProvider.tabs.style('standard');
-
-    // Android defaults to left and IOS defaults to center
-    $ionicConfigProvider.navBar.alignTitle('center');
-
-    // Back button text.
-    $ionicConfigProvider.backButton.text('Back');
-
-    // Enable native scrolls for Android platform only,
-    // as you see, we're disabling jsScrolling to achieve this.
-    // for performance improvement
-    if (ionic.Platform.isAndroid()) {
-      //$ionicConfigProvider.scrolling.jsScrolling(false);
     }
-    //$ionicConfigProvider.views.maxCache(0);
-  })
-
-  .config(function ($stateProvider, $urlRouterProvider) {
-
-    // Ionic uses AngularUI Router which uses the concept of states
-    // Learn more here: https://github.com/angular-ui/ui-router
-    // Set up the various states which the app can be in.
-    // Each state's controller can be found in controllers.js
-    $stateProvider
-
-      // setup an abstract state for the tabs directive
-      .state('tab', {
-        url: '/tab',
-        abstract: true,
-        templateUrl: 'templates/tabs.html'
-      })
-
-      // Each tab has its own nav history stack:
-      .state('tab.dash', {
-        url: '/dash',
-        views: {
-          'tab-dash': {
-            templateUrl: 'templates/tab-dash.html',
-            controller: 'DashCtrl'
-          }
-        }
-      })
-      .state('tab.slides', {
-        url: '/slides',
-        views: {
-          'tab-slides': {
-            templateUrl: 'templates/tab-slides.html',
-            controller: 'SlidesCtrl'
-          }
-        }
-      })
-      .state('tab.favorites', {
-        url: '/favorites',
-        views: {
-          'tab-favorites': {
-            templateUrl: 'templates/tab-favorites.html',
-            controller: 'FavoritesCtrl'
-          }
-        }
-      })
-      .state('tab.chats', {
-        url: '/chats',
-        views: {
-          'tab-chats': {
-            templateUrl: 'templates/tab-chats.html',
-            controller: 'ChatsCtrl'
-          }
-        }
-      })
-      .state('tab.chat-detail', {
-        url: '/chats/:chatId',
-        views: {
-          'tab-chats': {
-            templateUrl: 'templates/chat-detail.html',
-            controller: 'ChatDetailCtrl'
-          }
-        }
-      })
-      .state('tab.account', {
-        url: '/account',
-        views: {
-          'tab-account': {
-            templateUrl: 'templates/tab-account.html',
-            controller: 'AccountCtrl'
-          }
-        }
-      })
-      .state('tab.myAccount', {
-        url: '/myAccount',
-        views: {
-          'tab-myAccount': {
-            templateUrl: 'templates/tab-myAccount.html',
-            controller: 'MyAccountCtrl'
-          }
-        }
-      })
-
-      .state('tab.auth', {
-        url: '/auth',
-        cache: false,
-        views: {
-          'tab-myAccount': {
-            templateUrl: 'templates/auth.html',
-            controller: 'AuthCtrl'
-          }
-        }
-      });
-
-    // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/dash');
-    //$urlRouterProvider.otherwise('/auth');
-
+    if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleLightContent();
+    }
+    cordova.getAppVersion(function (version) {
+      appVersion = version;
+    });
   });
+});
+
+myApp.config(function ($ionicConfigProvider) {
+  // Android defaults to top and iOS defaults to bottom
+  $ionicConfigProvider.tabs.position('bottom');
+
+  // Tab style. Android defaults to striped and iOS defaults to standard
+  $ionicConfigProvider.tabs.style('standard');
+
+  // Android defaults to left and IOS defaults to center
+  $ionicConfigProvider.navBar.alignTitle('center');
+
+  // Back button text.
+  $ionicConfigProvider.backButton.text('Back');
+
+  // Enable native scrolls for Android platform only,
+  // as you see, we're disabling jsScrolling to achieve this.
+  // for performance improvement
+  if (ionic.Platform.isAndroid()) {
+    //$ionicConfigProvider.scrolling.jsScrolling(false);
+  }
+  //$ionicConfigProvider.views.maxCache(0);
+});
+
+myApp.config(function ($stateProvider, $urlRouterProvider) {
+
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+    // setup an abstract state for the tabs directive
+    .state('tab', {
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
+    })
+    // Each tab has its own nav history stack:
+    .state('tab.dash', {
+      url: '/dash',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/tab-dash.html',
+          controller: 'DashCtrl'
+        }
+      }
+    })
+    .state('tab.slides', {
+      url: '/slides',
+      views: {
+        'tab-slides': {
+          templateUrl: 'templates/tab-slides.html',
+          controller: 'SlidesCtrl'
+        }
+      }
+    })
+    .state('tab.favorites', {
+      url: '/favorites',
+      views: {
+        'tab-favorites': {
+          templateUrl: 'templates/tab-favorites.html',
+          controller: 'FavoritesCtrl'
+        }
+      }
+    })
+    .state('tab.chats', {
+      url: '/chats',
+      views: {
+        'tab-chats': {
+          templateUrl: 'templates/tab-chats.html',
+          controller: 'ChatsCtrl'
+        }
+      }
+    })
+    .state('tab.chat-detail', {
+      url: '/chats/:chatId',
+      views: {
+        'tab-chats': {
+          templateUrl: 'templates/chat-detail.html',
+          controller: 'ChatDetailCtrl'
+        }
+      }
+    })
+    .state('tab.account', {
+      url: '/account',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/tab-account.html',
+          controller: 'AccountCtrl'
+        }
+      }
+    })
+    .state('tab.myAccount', {
+      url: '/myAccount',
+      views: {
+        'tab-myAccount': {
+          templateUrl: 'templates/tab-myAccount.html',
+          controller: 'MyAccountCtrl'
+        }
+      }
+    })
+    // login screen
+    .state('tab.auth', {
+      url: '/auth',
+      cache: false,
+      views: {
+        'tab-myAccount': {
+          templateUrl: 'templates/auth.html',
+          controller: 'AuthCtrl'
+        }
+      }
+    })
+    // income catagory list screen
+    .state('tab.incomeCatagoryList', {
+      url: '/incomeCatagoryList',
+      cache: false,
+      views: {
+        'tab-myAccount': {
+          templateUrl: 'templates/incomeCatagoryList.html',
+          controller: 'IncomeCatagoryListCtrl'
+        }
+      }
+    })
+    // expense catagory list screen
+    .state('tab.expenseCatagoryList', {
+      url: '/expenseCatagoryList',
+      cache: false,
+      views: {
+        'tab-myAccount': {
+          templateUrl: 'templates/expenseCatagoryList.html',
+          controller: 'ExpenseCatagoryListCtrl'
+        }
+      }
+    })
+  ;
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/tab/dash');
+  //$urlRouterProvider.otherwise('/auth');
+
+});
