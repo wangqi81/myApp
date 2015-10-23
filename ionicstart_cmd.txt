@@ -11,12 +11,14 @@ ionic setup sass
 cordova plugin add cordova-plugin-app-version
 cordova plugin add io.litehelpers.cordova.sqlitestorage
 
+cordova plugin remove io.litehelpers.cordova.sqlitestorage
+
 #PouchDB library
 npm install -g pouchdb
 npm install pouchdb-collate
 
 #start pouchdb server
-npm install -g pouchdb-server c
+npm install -g pouchdb-server
 pouchdb-server --port 5984
 
 http://localhost:5984/_utils/

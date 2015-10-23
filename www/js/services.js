@@ -196,19 +196,19 @@ myapp.factory('AuthService', function ($q) {
 });
 
 myapp.factory('CategoryService', function ($q) {
-  var local_db_name = 'MoneyRecorder';
-  var remote_db_name = 'http://localhost:5984/MoneyRecorder';
+  var local_db_name = 'MoneyRecorder1';
+  var remote_db_name = 'http://localhost:5984/MoneyRecorder1';
 
-  PouchDB.debug.enable('*');
-  PouchDB.debug.disable('*');
+  //PouchDB.debug.enable('*');
 
   var local_db = new PouchDB(local_db_name);
   var remote_db = new PouchDB(remote_db_name);
 
-  //local_db.replicate.to(remote_db, {live: true});
+  local_db.sync(remote_db, {live: true});
 
   return {
-    initialCategory: initialCategory
+    initialCategory: initialCategory,
+    getLargeCategoryList: getLargeCategoryList
 
     // We'll add these later.
     //getAllUsers: getAllUsers,
@@ -220,10 +220,26 @@ myapp.factory('CategoryService', function ($q) {
     //setLoginFlg: setLoginFlg
   };
 
+  function getLargeCategoryList() {
+    console.log('[Service CategoryService getLargeCategoryList] start');
+
+    return local_db.query('categoryDoc/category_large').then(function (response) {
+      var largeCategory = response.rows.map(function (response) {
+        return response.value;
+      });
+      return $q.when(largeCategory);
+    }).then(function(results) {
+      console.log('[Service CategoryService getLargeCategoryList]get large category records finished');
+      return $q.when(results);
+    }).catch(function (err) {
+      console.log(err);
+      return $q.when('');
+    });
+  }
+
   function initialCategory() {
-    local_db.sync(remote_db, {live: true});
     // delete large category data
-    deleteLargeCategoryRecords().then(function(){
+    return deleteLargeCategoryRecords().then(function(){
       // delete category design doc
       return deleteCategoryDesignDoc();
     }).then(function() {
@@ -272,7 +288,7 @@ myapp.factory('CategoryService', function ($q) {
   function getLargeCategoryInitial() {
     var largeCategoryInitial = {
       'type': 'category_large',
-      //'_id': '',
+      '_id': '',
       'expense_or_income': '',
       'id': '',
       'name': '',

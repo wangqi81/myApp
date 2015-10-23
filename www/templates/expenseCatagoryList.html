@@ -2,52 +2,58 @@
   <ion-content>
 
     <div class="center padding-top padding-bottom">
-      <button class="button" ng-click="initialCatagory()">
+      <button class="button" ng-click="initialCategory()">
         初始化支出分类
       </button>
     </div>
 
-    <div class="list">
+    <div class="list" ng-repeat="largeCategory in largeCategoryList track by $index">
       <div class="item item-big-catagory">
-        大分类1<!--{{ category.categoryname }}-->
-      </div>
-
-      <div class="item item-small-catagory">
-        <!--<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>-->
-        小分类1<!--{{ category.categoryname }}-->
-      </div>
-
-      <div class="item item-small-catagory">
-        <!--<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>-->
-        小分类2<!--{{ category.categoryname }}-->
-      </div>
-
-      <div class="item item-small-catagory">
-        <!--<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>-->
-        小分类3<!--{{ category.categoryname }}-->
+        {{ largeCategory.name }}
       </div>
     </div>
 
-    <div class="list">
-      <div class="item item-big-catagory">
-        大分类2<!--{{ category.categoryname }}-->
-      </div>
+    <!--<div class="list">-->
+      <!--<div class="item item-big-catagory">-->
+        <!--大分类1&lt;!&ndash;{{ category.categoryname }}&ndash;&gt;-->
+      <!--</div>-->
 
-      <div class="item item-small-catagory">
-        <!--<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>-->
-        小分类1<!--{{ category.categoryname }}-->
-      </div>
+      <!--<div class="item item-small-catagory">-->
+        <!--&lt;!&ndash;<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>&ndash;&gt;-->
+        <!--小分类1&lt;!&ndash;{{ category.categoryname }}&ndash;&gt;-->
+      <!--</div>-->
 
-      <div class="item item-small-catagory">
-        <!--<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>-->
-        小分类2<!--{{ category.categoryname }}-->
-      </div>
+      <!--<div class="item item-small-catagory">-->
+        <!--&lt;!&ndash;<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>&ndash;&gt;-->
+        <!--小分类2&lt;!&ndash;{{ category.categoryname }}&ndash;&gt;-->
+      <!--</div>-->
 
-      <div class="item item-small-catagory">
-        <!--<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>-->
-        小分类3<!--{{ category.categoryname }}-->
-      </div>
-    </div>
+      <!--<div class="item item-small-catagory">-->
+        <!--&lt;!&ndash;<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>&ndash;&gt;-->
+        <!--小分类3&lt;!&ndash;{{ category.categoryname }}&ndash;&gt;-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="list">-->
+      <!--<div class="item item-big-catagory">-->
+        <!--大分类2&lt;!&ndash;{{ category.categoryname }}&ndash;&gt;-->
+      <!--</div>-->
+
+      <!--<div class="item item-small-catagory">-->
+        <!--&lt;!&ndash;<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>&ndash;&gt;-->
+        <!--小分类1&lt;!&ndash;{{ category.categoryname }}&ndash;&gt;-->
+      <!--</div>-->
+
+      <!--<div class="item item-small-catagory">-->
+        <!--&lt;!&ndash;<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>&ndash;&gt;-->
+        <!--小分类2&lt;!&ndash;{{ category.categoryname }}&ndash;&gt;-->
+      <!--</div>-->
+
+      <!--<div class="item item-small-catagory">-->
+        <!--&lt;!&ndash;<i class="icon ion-ios-pricetags-outline circleIconGreen"></i>&ndash;&gt;-->
+        <!--小分类3&lt;!&ndash;{{ category.categoryname }}&ndash;&gt;-->
+      <!--</div>-->
+    <!--</div>-->
 
   </ion-content>
 </ion-view>
