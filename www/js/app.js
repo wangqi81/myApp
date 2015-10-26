@@ -140,24 +140,24 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
       }
     })
     // income catagory list screen
-    .state('tab.incomeCatagoryList', {
-      url: '/incomeCatagoryList',
+    .state('tab.incomeCategoryList', {
+      url: '/incomeCategoryList',
       cache: false,
       views: {
         'tab-myAccount': {
-          templateUrl: 'templates/incomeCatagoryList.html',
-          controller: 'IncomeCatagoryListCtrl'
+          templateUrl: 'templates/incomeCategoryList.html',
+          controller: 'IncomeCategoryListCtrl'
         }
       }
     })
     // expense catagory list screen
-    .state('tab.expenseCatagoryList', {
-      url: '/expenseCatagoryList',
+    .state('tab.expenseCategoryList', {
+      url: '/expenseCategoryList',
       cache: false,
       views: {
         'tab-myAccount': {
-          templateUrl: 'templates/expenseCatagoryList.html',
-          controller: 'ExpenseCatagoryListCtrl'
+          templateUrl: 'templates/expenseCategoryList.html',
+          controller: 'ExpenseCategoryListCtrl'
         }
       }
     })
