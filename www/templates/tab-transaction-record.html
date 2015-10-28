@@ -1,0 +1,36 @@
+<ion-view view-title="记帐">
+  <ion-content>
+    <form ng-submit="saveTransaction(transactionRecord)">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">金额</span>
+          <input type="number" placeholder="金额" ng-model="transactionRecord.amount">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">分类</span>
+          <input type="text" placeholder="分类" ng-model="transactionRecord.category">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">日期</span>
+          <input type="date" placeholder="日期" ng-model="transactionRecord.date">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">备注</span>
+          <input type="text" placeholder="备注" ng-model="transactionRecord.memo">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">币种</span>
+          <input type="text" placeholder="币种" ng-model="transactionRecord.currency">
+        </label>
+        <label class="item ">
+          <input type="checkbox" placeholder="可报销" ng-model="transactionRecord.canReimburse">
+          可报销
+        </label>
+      </div>
+      <div class="padding">
+        <button type="submit" class="button button-block button-positive">保存</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
+

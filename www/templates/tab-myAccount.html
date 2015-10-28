@@ -4,34 +4,53 @@
     <div class="list">
 
       <div ng-show="loginFlg" class="item item-avatar item-button-right">
-          <img src="./img/ionic.png">
-          已登陆
+        <img src="./img/ionic.png">
+
+        <h2>已登陆</h2>
+
+        <p>可以与云端同步记帐数据</p>
         <button class="button button-energized" ng-click="logout()">
           Logout
         </button>
-        <!--<h2>Venkman</h2>-->
-        <!--<p>Back off, man. I'm a scientist.</p>-->
       </div>
-      <div ng-show="!loginFlg" class="item item-avatar item-button-right">
+      <a ng-show="!loginFlg" class="item item-avatar item-icon-right" ng-click="goAuth()">
         <img src="./img/ionic.png">
-        你还没有登录哦
-        <button class="button button-energized" ng-click="goAuth()">
-          登录
-        </button>
-        <!--<h2>Venkman</h2>-->
-        <!--<p>Back off, man. I'm a scientist.</p>-->
-      </div>
+
+        <h2>登录</h2>
+
+        <p>登陆后，可以与云端同步记帐数据</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
 
       <div class="item item-divider">
         设置
       </div>
 
-      <a class="item item-icon-left " href="#/tab/expenseCategoryList">
-        <i class="icon ion-android-menu"></i>
-        开支分类
-        <span class="item-note right">></span>
+      <a class="item item-icon-left item-icon-right" href="#/tab/expenseCategoryList">
+        <i class="icon ion-bag"></i>
+        支出分类
+        <i class="icon ion-chevron-right icon-accessory"></i>
       </a>
-
+      <a class="item item-icon-left item-icon-right" href="#/tab/expenseCategoryList">
+        <i class="icon ion-social-yen-outline"></i>
+        收入分类
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <a class="item item-icon-left" onclick="alert('待续...');">
+        <i class="icon ion-android-sync"></i>
+        同步数据
+        <span class="badge badge-assertive">未完待续...</span>
+      </a>
+      <a class="item item-icon-left" onclick="alert('待续...');">
+        <i class="icon ion-android-apps"></i>
+        检查新版本
+        <span class="item-note right">v{{appVersion}}</span>
+      </a>
+      <a class="item item-icon-left" href="#/tab/about">
+        <i class="icon ion-ios-information-outline"></i>
+        关于
+        <span class="badge badge-assertive">未完待续...</span>
+      </a>
 
       <div class="item item-divider">
         List
@@ -41,8 +60,6 @@
         <i class="icon ion-android-alarm-clock"></i>
         打卡提醒设置
         <span class="item-note right">未开启 ></span>
-
-
       </a>
 
       <a class="item" href="#">
@@ -95,7 +112,9 @@
     <div class="list">
       <a class="item item-avatar" href="#">
         <img src="./img/ionic.png">
+
         <h2>Venkman</h2>
+
         <p>Back off, man. I'm a scientist.</p>
       </a>
     </div>
@@ -109,7 +128,9 @@
     <div class="list">
       <a class="item item-thumbnail-left" href="#">
         <img src="./img/ionic.png">
+
         <h2>Pretty Hate Machine</h2>
+
         <p>Nine Inch Nails</p>
       </a>
     </div>
@@ -184,7 +205,9 @@
 
       <div class="item item-avatar">
         <img src="./img/ionic.png">
+
         <h2>Pretty Hate Machine</h2>
+
         <p>Nine Inch Nails</p>
       </div>
 
@@ -209,17 +232,21 @@
 
       <div class="item item-avatar">
         <img src="./img/ionic.png">
+
         <h2>Marty McFly</h2>
+
         <p>November 05, 1955</p>
       </div>
 
       <div class="item item-body">
         <img class="full-image" src="./img/ionic.png">
+
         <p>
           This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
           the content is from a card-body consisting of an image and paragraph text. The footer
           consists of tabs, icons aligned left, within the card-footer.
         </p>
+
         <p>
           <a href="#" class="subdued">1 Like</a>
           <a href="#" class="subdued">5 Comments</a>

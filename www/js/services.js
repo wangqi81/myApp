@@ -303,6 +303,8 @@ myapp.factory('CategoryService', function ($q) {
       '交通': ["打车", "公交", "加油", "停车费", "地铁", "火车", "长途汽车", "过路过桥", "保养维修", "飞机", "车款车贷", "罚款赔偿", "车险", "自行车", "船舶", "驾照费用", "交通其他"]
     };
 
+    var initialIncomeLargeCategoryNameArray = ['工资薪水',' 奖金',' 兼职外快',' 福利补贴',' 生活费',' 公积金',' 退款返款',' 礼金',' 红包',' 赔付款',' 漏记款',' 报销款',' 利息',' 余额宝',' 基金',' 分红',' 租金',' 股票',' 销售款',' 应收款',' 营业收入',' 工程款',' 其他'];
+
     var expenseCategoryDocArray = [];
 
     angular.forEach(initialExpenseLargeCategoryNameArray, function (value, i) {

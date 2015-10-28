@@ -110,6 +110,16 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    // transaction record
+    .state('tab.transactionRecord', {
+      url: '/transactionRecord',
+      views: {
+        'tab-transactionRecord': {
+          templateUrl: 'templates/tab-transaction-record.html',
+          controller: 'TransactionRecordCtrl'
+        }
+      }
+    })
     .state('tab.account', {
       url: '/account',
       views: {
@@ -161,10 +171,22 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    // about screen
+    .state('tab.about', {
+      url: '/about',
+      cache: false,
+      views: {
+        'tab-myAccount': {
+          templateUrl: 'templates/about.html'
+          //controller: 'ExpenseCategoryListCtrl'
+        }
+      }
+    })
   ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  //$urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/transactionRecord');
   //$urlRouterProvider.otherwise('/auth');
 
 });
