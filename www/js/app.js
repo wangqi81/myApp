@@ -149,17 +149,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    // income catagory list screen
-    .state('tab.incomeCategoryList', {
-      url: '/incomeCategoryList',
-      cache: false,
-      views: {
-        'tab-myAccount': {
-          templateUrl: 'templates/incomeCategoryList.html',
-          controller: 'IncomeCategoryListCtrl'
-        }
-      }
-    })
     // expense catagory list screen
     .state('tab.expenseCategoryList', {
       url: '/expenseCategoryList',
@@ -168,6 +157,17 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         'tab-myAccount': {
           templateUrl: 'templates/expenseCategoryList.html',
           controller: 'ExpenseCategoryListCtrl'
+        }
+      }
+    })
+    // income catagory list screen
+    .state('tab.incomeCategoryList', {
+      url: '/incomeCategoryList',
+      cache: false,
+      views: {
+        'tab-myAccount': {
+          templateUrl: 'templates/incomeCategoryList.html',
+          controller: 'IncomeCategoryListCtrl'
         }
       }
     })

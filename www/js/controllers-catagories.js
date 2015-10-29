@@ -1,9 +1,36 @@
-myapp.controller('IncomeCategoryListCtrl', function ($scope, $rootScope, $ionicLoading, $timeout) {
+myapp.controller('IncomeCategoryListCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, CategoryService) {
+  $scope.largeCategoryList = [];
 
+  // show large category list
+  var showIncomeLargeCategoryList = function () {
+    var getIncomeLargeCategoryListPromise = CategoryService.getIncomeLargeCategoryList();
+    getIncomeLargeCategoryListPromise.then(function (result) {
+      console.log(result);
+
+      $scope.largeCategoryList = result;
+
+      // hide loading spinner
+      $ionicLoading.hide();
+    }).catch(function (err) {
+      console.log(err);
+      // hide loading spinner
+      $ionicLoading.hide();
+      throw err;
+    });
+  };
+
+  // show loading spinner
+  $ionicLoading.show({
+    //noBackdrop: true,
+    template: 'Loading...'
+  });
+
+  // show expense large and small category list
+  showIncomeLargeCategoryList();
 });
 
 myapp.controller('ExpenseCategoryListCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, CategoryService) {
-  $scope.largeCategoryList = [];
+  $scope.largeCategoryWithSmallCategoriesList = [];
 
   // show large and small category list
   var showExpenseLargeAndSmallCategoryList = function () {
@@ -48,31 +75,13 @@ myapp.controller('ExpenseCategoryListCtrl', function ($scope, $rootScope, $ionic
     });
   };
 
-  // category initialize button click
-  $scope.initialCategory = function () {
-    // show loading spinner
-    $ionicLoading.show({
-      noBackdrop: true,
-      template: 'Loading...'
-    });
-
-    CategoryService.initialCategory().then(function () {
-      showExpenseLargeAndSmallCategoryList();
-    }).catch(function (err) {
-      console.log(err);
-      // hide loading spinner
-      $ionicLoading.hide();
-      throw err;
-    });
-  };
-
   // show loading spinner
   $ionicLoading.show({
-    noBackdrop: true,
+    //noBackdrop: true,
     template: 'Loading...'
   });
 
-  // when screen load
+  // show expense large and small category list
   showExpenseLargeAndSmallCategoryList();
 
 });

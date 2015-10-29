@@ -1,4 +1,4 @@
-<ion-view view-title="MyAccount">
+<ion-view view-title="我">
   <ion-content>
 
     <div class="list">
@@ -26,12 +26,16 @@
         设置
       </div>
 
+      <a class="item item-icon-left" ng-click="initialCategory()">
+        <i class="icon ion-ios-plus-outline"></i>
+        初始化收支分类
+      </a>
       <a class="item item-icon-left item-icon-right" href="#/tab/expenseCategoryList">
         <i class="icon ion-bag"></i>
         支出分类
         <i class="icon ion-chevron-right icon-accessory"></i>
       </a>
-      <a class="item item-icon-left item-icon-right" href="#/tab/expenseCategoryList">
+      <a class="item item-icon-left item-icon-right" href="#/tab/incomeCategoryList">
         <i class="icon ion-social-yen-outline"></i>
         收入分类
         <i class="icon ion-chevron-right icon-accessory"></i>

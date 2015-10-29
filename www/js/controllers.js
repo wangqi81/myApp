@@ -164,7 +164,7 @@ myapp.controller('AccountCtrl', function ($scope, $rootScope) {
   };
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-myapp.controller('MyAccountCtrl', function ($scope, $rootScope, $state, $stateParams, $ionicPopup, AuthService) {
+myapp.controller('MyAccountCtrl', function ($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicLoading, AuthService, CategoryService) {
   // before enter view event
   $scope.$on('$ionicView.beforeEnter', function () {
     $rootScope.hideTabs = false;
@@ -189,7 +189,35 @@ myapp.controller('MyAccountCtrl', function ($scope, $rootScope, $state, $statePa
 
   $scope.logout = function () {
     $scope.loginFlg = AuthService.setLoginFlg(false);
-  }
+  };
+
+  // category initialize button click
+  $scope.initialCategory = function () {
+    // A confirm dialog
+    var confirmPopup = $ionicPopup.confirm({
+      //title: '确认',
+      template: '确认初始化支出分类和收入分类吗？(会有点慢)'
+    });
+    confirmPopup.then(function(res) {
+      if(res) {
+        // show loading spinner
+        $ionicLoading.show({
+          template: '处理中...'
+        });
+
+        CategoryService.initialCategory().then(function () {
+          // hide loading spinner
+          $ionicLoading.hide();
+        }).catch(function (err) {
+          console.log(err);
+          // hide loading spinner
+          $ionicLoading.hide();
+          throw err;
+        });
+      }
+    });
+  };
+
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 myapp.controller('AuthCtrl', function ($scope, $rootScope, $ionicPlatform, $state, AuthService, $ionicPopup, $ionicHistory) {

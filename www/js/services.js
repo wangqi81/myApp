@@ -209,16 +209,8 @@ myapp.factory('CategoryService', function ($q) {
   return {
     initialCategory: initialCategory,
     getExpenseLargeAndSmallCategoryList: getExpenseLargeAndSmallCategoryList,
-    getExpenseLargeCategoryList: getExpenseLargeCategoryList
-
-    // We'll add these later.
-    //getAllUsers: getAllUsers,
-    //addUser: addUser,
-    //validUser: validUser,
-    //updateUser: updateUser,
-    //deleteUser: deleteUser,
-    //getLoginFlg: getLoginFlg,
-    //setLoginFlg: setLoginFlg
+    getExpenseLargeCategoryList: getExpenseLargeCategoryList,
+    getIncomeLargeCategoryList: getIncomeLargeCategoryList
   };
 
   function getExpenseLargeAndSmallCategoryList() {
@@ -257,9 +249,27 @@ myapp.factory('CategoryService', function ($q) {
     });
   }
 
+  function getIncomeLargeCategoryList() {
+    console.log('[Service CategoryService getIncomeLargeCategoryList] start');
+
+    return local_db.query('categoryDoc/income_category_large').then(function (response) {
+      var largeCategory = response.rows.map(function (response) {
+        return response.value;
+      });
+      return $q.when(largeCategory);
+    }).then(function (results) {
+      console.log('[Service CategoryService getIncomeLargeCategoryList]get large category list Success.');
+      return $q.when(results);
+    }).catch(function (err) {
+      console.log('[Service CategoryService getIncomeLargeCategoryList]get large category list Error.');
+      console.log(err);
+      return $q.when('');
+    });
+  }
+
   function initialCategory() {
     // delete large category data
-    return deleteLargeCategoryRecords().then(function () {
+    return deleteAllRecords().then(function () {
       // delete category design doc
       return deleteCategoryDesignDoc();
     }).then(function () {
@@ -297,16 +307,25 @@ myapp.factory('CategoryService', function ($q) {
   function initializeCategoryData() {
     console.log('[Service CategoryService initializeCategoryData] start');
 
-    var initialExpenseLargeCategoryNameArray = ['餐饮', '交通', '购物', '娱乐', '医教', '居家', '投资', '人情', '生意'];
+    var initialExpenseLargeCategoryNameArray = ['餐饮', '零食烟酒', '交通', '汽车', '住房', '购物', '娱乐', '通讯', '孩子', '居家', '医疗', '教育', '投资', '人情'];
     var initialExpenseSmallCategoryNameArrayObject = {
-      '餐饮': ["早餐", "午餐", "晚餐", "饮料水果", "零食", "买菜原料", "夜宵", "油盐酱醋", "餐饮其他"],
-      '交通': ["打车", "公交", "加油", "停车费", "地铁", "火车", "长途汽车", "过路过桥", "保养维修", "飞机", "车款车贷", "罚款赔偿", "车险", "自行车", "船舶", "驾照费用", "交通其他"]
+      '餐饮': ['三餐', '买菜原料', '夜宵', '油盐酱醋'],
+      '零食烟酒': ['饮料', '水果', '零食', '烟酒'],
+      '交通': ['打车', '公交', '地铁', '火车', '长途汽车', '飞机', '船舶'],
+      '汽车': ['加油', '停车费', '过路过桥', '保养维修', '车款车贷', '罚款赔偿', '车险', '驾照费用'],
+      '住房': ['家具家纺', '物业', '水电燃气', '房租', '房贷', '装修'],
+      '购物': ['服饰鞋包', '家居百货', '化妆护肤', '电子数码', '报刊书籍', '电器', '珠宝首饰', '保健用品', '摄影文印'],
+      '娱乐': ['旅游度假', '网游电玩', '电影', '洗浴足浴', '运动健身', '卡拉OK', '茶酒咖啡', '歌舞演出', '电视', '娱乐其他', '花鸟宠物', '麻将棋牌', '聚会玩乐'],
+      '通讯': ['手机电话', '电脑宽带'],
+      '孩子': ['学费', '教育', '文具', '玩具', '用品', '家教补习', '学杂教材'],
+      '居家': ['美发美容', '材料建材', '快递邮政', '家政服务', '生活费', '婚庆摄影', '漏记款', '保险费', '消费贷款', '税费手续费'],
+      '医疗': ['医疗药品', '挂号门诊', '养生保健', '住院费'],
+      '教育': ['培训考试'],
+      '人情': ['礼金红包', '物品', '请客', '代付款', '孝敬', '给予', '慈善捐款'],
+      '投资': ['股票', '基金', '理财产品', '余额宝', '银行存款', '保险', 'P2P', '证券期货', '出资', '贵金属', '投资贷款', '外汇', '收藏品', '利息支出']
     };
 
-    var initialIncomeLargeCategoryNameArray = ['工资薪水',' 奖金',' 兼职外快',' 福利补贴',' 生活费',' 公积金',' 退款返款',' 礼金',' 红包',' 赔付款',' 漏记款',' 报销款',' 利息',' 余额宝',' 基金',' 分红',' 租金',' 股票',' 销售款',' 应收款',' 营业收入',' 工程款',' 其他'];
-
     var expenseCategoryDocArray = [];
-
     angular.forEach(initialExpenseLargeCategoryNameArray, function (value, i) {
       var expenseLargeCategoryDoc = getExpenseLargeCategorySchema();
 
@@ -329,15 +348,34 @@ myapp.factory('CategoryService', function ($q) {
           expenseSmallCategoryDoc.order = expenseSmallCategoryDoc.id;
 
           // sort by type, large category order, large category id
-          expenseSmallCategoryDoc._id = pouchCollate.toIndexableString([expenseSmallCategoryDoc.type, expenseSmallCategoryDoc.id]);
+          expenseSmallCategoryDoc._id = pouchCollate.toIndexableString([expenseSmallCategoryDoc.type, expenseSmallCategoryDoc.large_category_id, expenseSmallCategoryDoc.id]);
           expenseCategoryDocArray.push(expenseSmallCategoryDoc);
         });
       }
 
     });
 
+    var initialIncomeLargeCategoryNameArray = ['工资薪水', ' 奖金', ' 兼职外快', ' 福利补贴', ' 生活费', ' 公积金', ' 退款返款', ' 礼金', ' 红包', ' 赔付款', ' 漏记款', ' 报销款', ' 利息', ' 余额宝', ' 基金', ' 分红', ' 租金', ' 股票', ' 销售款', ' 应收款', ' 营业收入', ' 工程款'];
+    var incomeCategoryDocArray = [];
+    angular.forEach(initialIncomeLargeCategoryNameArray, function (value, i) {
+      var incomeLargeCategoryDoc = getIncomeLargeCategorySchema();
+
+      incomeLargeCategoryDoc.id = (200 + i) + '';
+      incomeLargeCategoryDoc.name = value;
+      incomeLargeCategoryDoc.order = incomeLargeCategoryDoc.id;
+
+      // sort by type, large category order, large category id
+      incomeLargeCategoryDoc._id = pouchCollate.toIndexableString([incomeLargeCategoryDoc.type, incomeLargeCategoryDoc.id]);
+      incomeCategoryDocArray.push(incomeLargeCategoryDoc);
+    });
+
     return local_db.bulkDocs(expenseCategoryDocArray).then(function (results) {
-      console.log('[Service CategoryService initializeCategoryData] bulkDocs finished');
+      console.log('[Service CategoryService initializeCategoryData] expense category bulkDocs finished');
+      console.log(results.length);
+      return local_db.bulkDocs(incomeCategoryDocArray);
+    }).then(function(results){
+      console.log('[Service CategoryService initializeCategoryData] income category bulkDocs finished');
+      console.log(results.length);
     }).catch(function () {
       console.log(err);
       throw err;
@@ -378,6 +416,22 @@ myapp.factory('CategoryService', function ($q) {
     return expenseSmallCategorySchema;
   }
 
+  function getIncomeLargeCategorySchema() {
+    var incomeLargeCategorySchema = {
+      'type': 'income_category_large',
+      '_id': '',
+      'id': '',
+      'name': '',
+      'order': '',
+      'create_user': '',
+      'create_date': new Date().toJSON(),
+      'update_user': '',
+      'update_date': ''
+    };
+
+    return incomeLargeCategorySchema;
+  }
+
   function createCategoryDesignDoc() {
     console.log('[Service CategoryService createCategoryDesignDoc] start');
     // create a design doc
@@ -406,6 +460,13 @@ myapp.factory('CategoryService', function ($q) {
               emit([doc.large_category_id, 1, doc.order], doc);
             }
           }.toString()
+        },
+        'income_category_large': {
+          map: function (doc) {
+            if (doc.type === 'income_category_large') {
+              emit([doc._id], doc);
+            }
+          }.toString()
         }
       }
     };
@@ -432,15 +493,17 @@ myapp.factory('CategoryService', function ($q) {
     });
   }
 
-  function deleteLargeCategoryRecords() {
+  function deleteAllRecords() {
     console.log('[Service CategoryService deleteLargeCategoryRecords] start');
 
-    return local_db.query('categoryDoc/expense_category_large_small').then(function (response) {
+    return local_db.allDocs().then(function (response) {
       return Promise.all(response.rows.map(function (row) {
-        return local_db.remove(row.value);
+        return local_db.remove(row.id, row.value.rev);
       }));
     }).then(function (results) {
       console.log('[Service CategoryService deleteLargeCategoryRecords]remove all category_large view recoreds finished');
+      console.log(results);
+      console.log(results.length);
     }).catch(function (err) {
       console.log(err);
       return $q.when('');

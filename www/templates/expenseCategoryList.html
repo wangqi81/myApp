@@ -6,21 +6,15 @@
 
   <ion-content>
 
-    <div class="center padding-top padding-bottom">
-      <button class="button button-outline button-balanced" ng-click="initialCategory()">
-        初始化支出分类
-      </button>
-    </div>
-
     <div class="" ng-repeat="largeCategory in largeCategoryWithSmallCategoriesList track by $index">
       <div class="item item-big-category">
         {{ largeCategory.name }}
       </div>
       <div class="item">
         <div class="row" ng-repeat="smallCategory in largeCategory.small_categories track by $index"
-             ng-if="$index % 4 === 0">
-          <div class="col col-25" ng-repeat="i in [0, 1, 2, 3]">
-            {{ largeCategory.small_categories[$index + i].name }}
+             ng-if="$index % 3 === 0" ng-init="parentIndex = $index">
+          <div class="col col-33" ng-repeat="i in [0, 1, 2]">
+            {{ largeCategory.small_categories[parentIndex + i].name }}
           </div>
         </div>
       </div>

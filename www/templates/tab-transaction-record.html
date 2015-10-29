@@ -1,4 +1,14 @@
-<ion-view view-title="记帐">
+<ion-view view-title="">
+
+  <ion-nav-buttons side="primary">
+    <button class="button" ng-click="alert('aa');">
+      支出
+    </button>
+    <button class="button" ng-click="doSomething()">
+      收入
+    </button>
+  </ion-nav-buttons>
+
   <ion-content>
     <form ng-submit="saveTransaction(transactionRecord)">
       <div class="list">
