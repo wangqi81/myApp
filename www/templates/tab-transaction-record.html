@@ -22,86 +22,66 @@
         <input type="number" class="text-right" placeholder="0.00" ng-model="transactionRecord.amount">
       </label>
 
+      <!--<ion-slide-box does-continue="true">-->
+        <!--<ion-slide ng-repeat="largeCategory in largeCategoryWithSmallCategoriesList track by $index"-->
+                   <!--ng-if="$index % 12 === 0" ng-init="slideRepeatIndex = $index">-->
+          <!--<div class="row" ng-repeat="i in [0, 1, 2]" ng-init="rowRepeatIndex = $index">-->
+            <!--<h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]" ng-init="colRepeatIndex = $index">-->
+              <!--{{ largeCategoryWithSmallCategoriesList[slideRepeatIndex + rowRepeatIndex * 4 + j].name }}-->
+            <!--</h5>-->
+          <!--</div>-->
+          <!--<br>-->
+        <!--</ion-slide>-->
+      <!--</ion-slide-box>-->
+
       <ion-slide-box does-continue="true">
-        <ion-slide ng-repeat="largeCategory in largeCategoryWithSmallCategoriesList track by $index"
-                   ng-if="$index % 12 === 0" ng-init="slideRepeatIndex = $index">
-          <div class="row" ng-repeat="i in [0, 1, 2]" ng-init="rowRepeatIndex = $index">
-            <h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]" ng-init="colRepeatIndex = $index">
-              {{ largeCategoryWithSmallCategoriesList[slideRepeatIndex + rowRepeatIndex * 4 + j].name }}
+        <ion-slide ng-repeat="largeCategory in largeCategoryWithSmallCategoriesList track by $index">
+          <div class="row">
+            <h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]">
+              {{ largeCategoryWithSmallCategoriesList[j].name }}
             </h5>
           </div>
           <br>
         </ion-slide>
       </ion-slide-box>
 
-      <ion-slide-box does-continue="true">
-        <ion-slide class="slider-slide">
-          <div class="row">
-            <h5 class="col col-25 ng-binding">
-              餐饮
-            </h5><h5 class="col col-25 ng-binding">
-            零食烟酒
-          </h5><h5 class="col col-25 ng-binding">
-            交通
-          </h5><h5 class="col col-25 ng-binding">
-            汽车
-          </h5>
-          </div>
-          <div class="row"><h5 class="col col-25 ng-binding">
-            住房
-          </h5><h5 class="col col-25 ng-binding">
-            购物
-          </h5><h5 class="col col-25 ng-binding">
-            娱乐
-          </h5><h5 class="col col-25 ng-binding">
-            通讯
-          </h5>
-          </div>
-          <div class="row"><h5 class="col col-25 ng-binding">
-            孩子
-          </h5><h5 class="col col-25 ng-binding">
-            居家
-          </h5><h5 class="col col-25 ng-binding">
-            医疗
-          </h5><h5 class="col col-25 ng-binding">
-            教育
-          </h5>
-          </div>
-        </ion-slide>
-        <ion-slide class="slider-slide">
-          <div class="row">
-            <h5 class="col col-25 ng-binding">
-              餐饮
-            </h5><h5 class="col col-25 ng-binding">
-            零食烟酒
-          </h5><h5 class="col col-25 ng-binding">
-            交通
-          </h5><h5 class="col col-25 ng-binding">
-            汽车
-          </h5>
-          </div>
-          <div class="row"><h5 class="col col-25 ng-binding">
-            住房
-          </h5><h5 class="col col-25 ng-binding">
-            购物
-          </h5><h5 class="col col-25 ng-binding">
-            娱乐
-          </h5><h5 class="col col-25 ng-binding">
-            通讯
-          </h5>
-          </div>
-          <div class="row"><h5 class="col col-25 ng-binding">
-            孩子
-          </h5><h5 class="col col-25 ng-binding">
-            居家
-          </h5><h5 class="col col-25 ng-binding">
-            医疗
-          </h5><h5 class="col col-25 ng-binding">
-            教育
-          </h5>
-          </div>
-        </ion-slide>
-      </ion-slide-box>
+      <!--<ion-slide-box does-continue="true">-->
+        <!--<ion-slide>-->
+          <!--<div class="row">-->
+            <!--<h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]">-->
+              <!--{{j}}-->
+            <!--</h5>-->
+          <!--</div>-->
+          <!--<div class="row">-->
+            <!--<h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]">-->
+              <!--{{j}}-->
+            <!--</h5>-->
+          <!--</div>-->
+          <!--<br>-->
+        <!--</ion-slide>-->
+        <!--<ion-slide>-->
+          <!--<div class="row">-->
+            <!--<h5 class="col col-25" ng-repeat="i in [0, 1, 2, 3]">-->
+              <!--{{i+10}}-->
+            <!--</h5>-->
+          <!--</div>-->
+          <!--<br>-->
+        <!--</ion-slide>-->
+        <!--<ion-slide>-->
+          <!--<div class="row">-->
+            <!--<h5 class="col col-25 ng-binding">-->
+              <!--abc-->
+            <!--</h5><h5 class="col col-25 ng-binding">-->
+            <!--零食烟酒-->
+          <!--</h5><h5 class="col col-25 ng-binding">-->
+            <!--交通-->
+          <!--</h5><h5 class="col col-25 ng-binding">-->
+            <!--汽车-->
+          <!--</h5>-->
+          <!--</div>-->
+          <!--<br>-->
+        <!--</ion-slide>-->
+      <!--</ion-slide-box>-->
       <!--<label class="item item-input">-->
         <!--<span class="input-label">分类</span>-->
         <!--<input type="text" placeholder="分类" ng-model="transactionRecord.category">-->

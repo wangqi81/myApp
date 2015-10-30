@@ -1,4 +1,4 @@
-myapp.controller('TransactionRecordCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, CategoryService) {
+myapp.controller('TransactionRecordCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, CategoryService, $ionicSlideBoxDelegate) {
   $scope.largeCategoryWithSmallCategoriesList = [];
 
   $scope.transactionRecord = {};
@@ -17,6 +17,7 @@ myapp.controller('TransactionRecordCtrl', function ($scope, $rootScope, $ionicLo
       console.log(result);
 
       $scope.largeCategoryWithSmallCategoriesList = result;
+      $ionicSlideBoxDelegate.update();
 
       // hide loading spinner
       $ionicLoading.hide();
