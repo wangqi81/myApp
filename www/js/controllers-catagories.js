@@ -34,36 +34,11 @@ myapp.controller('ExpenseCategoryListCtrl', function ($scope, $rootScope, $ionic
 
   // show large and small category list
   var showExpenseLargeAndSmallCategoryList = function () {
-    var getExpenseLargeAndSmallCategoryListPromise = CategoryService.getExpenseLargeAndSmallCategoryList();
+    var getExpenseLargeAndSmallCategoryListPromise = CategoryService.getExpenseLargeWithSmallCategoryList();
     getExpenseLargeAndSmallCategoryListPromise.then(function (result) {
       console.log(result);
 
-      var largeAndSmallCategoryList = result;
-      console.log(largeAndSmallCategoryList);
-
-      var largeCategoryWithSmallCategoriesList = [];
-      var smallCategoryCntInLargeCategory = 0;
-      var largeCategoryWithSmallCategories = {};
-
-      angular.forEach(largeAndSmallCategoryList, function (largeAndSmallCategory, i) {
-        // when large category
-        if (!largeAndSmallCategory.large_category_id) {
-          if (i !== 0) {
-            largeCategoryWithSmallCategoriesList.push(largeCategoryWithSmallCategories);
-          }
-          largeCategoryWithSmallCategories = largeAndSmallCategory;
-          largeCategoryWithSmallCategories.small_categories = [];
-        } else {
-          largeCategoryWithSmallCategories.small_categories.push(largeAndSmallCategory);
-        }
-
-        if (i === largeAndSmallCategoryList.length - 1) {
-          largeCategoryWithSmallCategoriesList.push(largeCategoryWithSmallCategories);
-        }
-
-      });
-
-      $scope.largeCategoryWithSmallCategoriesList = largeCategoryWithSmallCategoriesList;
+      $scope.largeCategoryWithSmallCategoriesList = result;
 
       // hide loading spinner
       $ionicLoading.hide();

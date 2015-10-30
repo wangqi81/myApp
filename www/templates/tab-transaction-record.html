@@ -1,46 +1,132 @@
 <ion-view view-title="">
 
-  <ion-nav-buttons side="primary">
-    <button class="button" ng-click="alert('aa');">
+  <ion-nav-buttons side="right">
+    <button class="button button-clear" ng-click="saveTransaction()">
+      <i class="icon ion-ios-checkmark-empty"></i>保存
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="left">
+    <button class="button" ng-click="">
       支出
     </button>
-    <button class="button" ng-click="doSomething()">
+    <button class="button" ng-click="">
       收入
     </button>
   </ion-nav-buttons>
 
   <ion-content>
-    <form ng-submit="saveTransaction(transactionRecord)">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">金额</span>
-          <input type="number" placeholder="金额" ng-model="transactionRecord.amount">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">分类</span>
-          <input type="text" placeholder="分类" ng-model="transactionRecord.category">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">日期</span>
-          <input type="date" placeholder="日期" ng-model="transactionRecord.date">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">备注</span>
-          <input type="text" placeholder="备注" ng-model="transactionRecord.memo">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">币种</span>
-          <input type="text" placeholder="币种" ng-model="transactionRecord.currency">
-        </label>
-        <label class="item ">
-          <input type="checkbox" placeholder="可报销" ng-model="transactionRecord.canReimburse">
-          可报销
-        </label>
-      </div>
-      <div class="padding">
-        <button type="submit" class="button button-block button-positive">保存</button>
-      </div>
-    </form>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">金额</span>
+        <input type="number" class="text-right" placeholder="0.00" ng-model="transactionRecord.amount">
+      </label>
+
+      <ion-slide-box does-continue="true">
+        <ion-slide ng-repeat="largeCategory in largeCategoryWithSmallCategoriesList track by $index"
+                   ng-if="$index % 12 === 0" ng-init="slideRepeatIndex = $index">
+          <div class="row" ng-repeat="i in [0, 1, 2]" ng-init="rowRepeatIndex = $index">
+            <h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]" ng-init="colRepeatIndex = $index">
+              {{ largeCategoryWithSmallCategoriesList[slideRepeatIndex + rowRepeatIndex * 4 + j].name }}
+            </h5>
+          </div>
+          <br>
+        </ion-slide>
+      </ion-slide-box>
+
+      <ion-slide-box does-continue="true">
+        <ion-slide class="slider-slide">
+          <div class="row">
+            <h5 class="col col-25 ng-binding">
+              餐饮
+            </h5><h5 class="col col-25 ng-binding">
+            零食烟酒
+          </h5><h5 class="col col-25 ng-binding">
+            交通
+          </h5><h5 class="col col-25 ng-binding">
+            汽车
+          </h5>
+          </div>
+          <div class="row"><h5 class="col col-25 ng-binding">
+            住房
+          </h5><h5 class="col col-25 ng-binding">
+            购物
+          </h5><h5 class="col col-25 ng-binding">
+            娱乐
+          </h5><h5 class="col col-25 ng-binding">
+            通讯
+          </h5>
+          </div>
+          <div class="row"><h5 class="col col-25 ng-binding">
+            孩子
+          </h5><h5 class="col col-25 ng-binding">
+            居家
+          </h5><h5 class="col col-25 ng-binding">
+            医疗
+          </h5><h5 class="col col-25 ng-binding">
+            教育
+          </h5>
+          </div>
+        </ion-slide>
+        <ion-slide class="slider-slide">
+          <div class="row">
+            <h5 class="col col-25 ng-binding">
+              餐饮
+            </h5><h5 class="col col-25 ng-binding">
+            零食烟酒
+          </h5><h5 class="col col-25 ng-binding">
+            交通
+          </h5><h5 class="col col-25 ng-binding">
+            汽车
+          </h5>
+          </div>
+          <div class="row"><h5 class="col col-25 ng-binding">
+            住房
+          </h5><h5 class="col col-25 ng-binding">
+            购物
+          </h5><h5 class="col col-25 ng-binding">
+            娱乐
+          </h5><h5 class="col col-25 ng-binding">
+            通讯
+          </h5>
+          </div>
+          <div class="row"><h5 class="col col-25 ng-binding">
+            孩子
+          </h5><h5 class="col col-25 ng-binding">
+            居家
+          </h5><h5 class="col col-25 ng-binding">
+            医疗
+          </h5><h5 class="col col-25 ng-binding">
+            教育
+          </h5>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+      <!--<label class="item item-input">-->
+        <!--<span class="input-label">分类</span>-->
+        <!--<input type="text" placeholder="分类" ng-model="transactionRecord.category">-->
+      <!--</label>-->
+      <label class="item item-input">
+        <span class="input-label">日期</span>/
+        <input type="date" placeholder="日期" ng-model="transactionRecord.date">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">备注</span>
+        <input type="text" placeholder="备注" ng-model="transactionRecord.memo">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">币种</span>
+        <input type="text" placeholder="币种" ng-model="transactionRecord.currency">
+      </label>
+      <label class="item ">
+        <input type="checkbox" placeholder="可报销" ng-model="transactionRecord.canReimburse">
+        可报销
+      </label>
+    </div>
+    <div class="padding">
+      <button type="submit" id="save" class="button button-block button-positive" ng-click="saveTransaction()">保存
+      </button>
+    </div>
   </ion-content>
 </ion-view>
 

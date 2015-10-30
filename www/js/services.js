@@ -208,19 +208,44 @@ myapp.factory('CategoryService', function ($q) {
 
   return {
     initialCategory: initialCategory,
-    getExpenseLargeAndSmallCategoryList: getExpenseLargeAndSmallCategoryList,
+    getExpenseLargeWithSmallCategoryList: getExpenseLargeWithSmallCategoryList,
     getExpenseLargeCategoryList: getExpenseLargeCategoryList,
     getIncomeLargeCategoryList: getIncomeLargeCategoryList
   };
 
-  function getExpenseLargeAndSmallCategoryList() {
+  // get expense large and small category list
+  function getExpenseLargeWithSmallCategoryList() {
     console.log('[Service CategoryService getLargeAndSmallCategoryList] start');
 
     return local_db.query('categoryDoc/expense_category_large_small').then(function (response) {
-      var largeCategory = response.rows.map(function (response) {
+      var largeCategoryAndSmallCategoryDocs = response.rows.map(function (response) {
         return response.value;
       });
-      return $q.when(largeCategory);
+
+      var largeAndSmallCategoryList = largeCategoryAndSmallCategoryDocs;
+
+      var largeCategoryWithSmallCategoriesList = [];
+      var largeCategoryWithSmallCategories = {};
+
+      angular.forEach(largeAndSmallCategoryList, function (largeOrSmallCategory, i) {
+        // when large category
+        if (!largeOrSmallCategory.large_category_id) {
+          if (i !== 0) {
+            largeCategoryWithSmallCategoriesList.push(largeCategoryWithSmallCategories);
+          }
+          largeCategoryWithSmallCategories = largeOrSmallCategory;
+          largeCategoryWithSmallCategories.small_categories = [];
+        } else {
+          largeCategoryWithSmallCategories.small_categories.push(largeOrSmallCategory);
+        }
+
+        if (i === largeAndSmallCategoryList.length - 1) {
+          largeCategoryWithSmallCategoriesList.push(largeCategoryWithSmallCategories);
+        }
+
+      });
+
+      return $q.when(largeCategoryWithSmallCategoriesList);
     }).then(function (results) {
       console.log('[Service CategoryService getLargeAndSmallCategoryList]get large and small category list Success.');
       return $q.when(results);
@@ -231,6 +256,7 @@ myapp.factory('CategoryService', function ($q) {
     });
   }
 
+  // get expense large category list
   function getExpenseLargeCategoryList() {
     console.log('[Service CategoryService getExpenseLargeCategoryList] start');
 
@@ -249,6 +275,7 @@ myapp.factory('CategoryService', function ($q) {
     });
   }
 
+  // get income large category list
   function getIncomeLargeCategoryList() {
     console.log('[Service CategoryService getIncomeLargeCategoryList] start');
 
