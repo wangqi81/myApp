@@ -1,4 +1,4 @@
-var myapp = angular.module('starter.controllers', []);
+var myapp = angular.module('starter.controllers', ['ionic', 'ionic-datepicker']);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 myapp.controller('DashCtrl', function ($scope, $rootScope, $ionicLoading, $timeout) {
   // before enter view event
@@ -196,7 +196,7 @@ myapp.controller('MyAccountCtrl', function ($scope, $rootScope, $state, $statePa
     // A confirm dialog
     var confirmPopup = $ionicPopup.confirm({
       //title: '确认',
-      template: '确认初始化支出分类和收入分类吗？(会有点慢)'
+      template: '确认初始化支出分类和收入分类吗？'
     });
     confirmPopup.then(function(res) {
       if(res) {

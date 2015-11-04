@@ -61,6 +61,9 @@
         },
         "io.litehelpers.cordova.sqliteStorage": {
             "PACKAGE_NAME": "com.ionicframework.myapp467116"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.ionicframework.myapp467116"
         }
     },
     "dependent_plugins": {}

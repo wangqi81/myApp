@@ -1,4 +1,9 @@
 myapp.controller('IncomeCategoryListCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, CategoryService) {
+  // before enter view event
+  $scope.$on('$ionicView.beforeEnter', function () {
+    $rootScope.hideTabs = true;
+  });
+
   $scope.largeCategoryList = [];
 
   // show large category list
@@ -30,6 +35,11 @@ myapp.controller('IncomeCategoryListCtrl', function ($scope, $rootScope, $ionicL
 });
 
 myapp.controller('ExpenseCategoryListCtrl', function ($scope, $rootScope, $ionicLoading, $timeout, CategoryService) {
+  // before enter view event
+  $scope.$on('$ionicView.beforeEnter', function () {
+    $rootScope.hideTabs = true;
+  });
+
   $scope.largeCategoryWithSmallCategoriesList = [];
 
   // show large and small category list

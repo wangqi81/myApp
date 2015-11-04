@@ -13,6 +13,8 @@ cordova plugin add io.litehelpers.cordova.sqlitestorage
 
 cordova plugin remove io.litehelpers.cordova.sqlitestorage
 
+ionic browser add crosswalk
+
 #PouchDB library
 npm install -g pouchdb
 npm install pouchdb-collate

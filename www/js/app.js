@@ -110,16 +110,27 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    // transaction dashboard
+    .state('tab.transactionDashboard', {
+      url: '/transactionDashboard',
+      views: {
+        'tab-transactionDashboard': {
+          templateUrl: 'templates/tab-transaction-dashboard.html',
+          controller: 'TransactionDashboardCtrl'
+        }
+      }
+    })
     // transaction record
     .state('tab.transactionRecord', {
-      url: '/transactionRecord',
+      url: '/transactionRecord/:transactionType',
       views: {
-        'tab-transactionRecord': {
+        'tab-transactionDashboard': {
           templateUrl: 'templates/tab-transaction-record.html',
           controller: 'TransactionRecordCtrl'
         }
       }
     })
+    //
     .state('tab.account', {
       url: '/account',
       views: {
@@ -186,7 +197,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
 
   // if none of the above states are matched, use this as the fallback
   //$urlRouterProvider.otherwise('/tab/dash');
-  $urlRouterProvider.otherwise('/tab/transactionRecord');
+  $urlRouterProvider.otherwise('/tab/transactionDashboard');
   //$urlRouterProvider.otherwise('/auth');
 
 });

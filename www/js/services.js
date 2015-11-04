@@ -210,8 +210,50 @@ myapp.factory('CategoryService', function ($q) {
     initialCategory: initialCategory,
     getExpenseLargeWithSmallCategoryList: getExpenseLargeWithSmallCategoryList,
     getExpenseLargeCategoryList: getExpenseLargeCategoryList,
-    getIncomeLargeCategoryList: getIncomeLargeCategoryList
+    getIncomeLargeCategoryList: getIncomeLargeCategoryList,
+    setLocalDefaultValue: setLocalDefaultValue,
+    getLocalDefaultValueByKey: getLocalDefaultValueByKey
   };
+
+  function setLocalDefaultValue(key, default_value) {
+    var local_default_db = new PouchDB('local_default_value_db');
+
+    var doc = {};
+
+    var getPromise = local_default_db.get(key).then(function (result) {
+      doc = result;
+      doc.default_value = default_value;
+    }).catch(function (err) {
+      doc._id = key;
+      doc.default_value = default_value;
+      $q.when(doc);
+    });
+
+    return getPromise.then(function () {
+      return local_default_db.put(doc);
+    }).then(function (result) {
+      console.log('[Service setLocalDefaultValue]put default db value Success.');
+      console.log(result);
+    }).catch(function (err) {
+      console.log('[Service setLocalDefaultValue]put default db value Error.');
+      console.log(err);
+      throw err;
+    });
+
+  }
+
+  function getLocalDefaultValueByKey(key) {
+    var local_default_db = new PouchDB('local_default_value_db');
+    var defaultValue = '';
+    var doc = {};
+
+    return local_default_db.get(key).then(function (result) {
+      return $q.when(result.default_value);
+    }).catch(function (err) {
+      $q.when('');
+    });
+
+  }
 
   // get expense large and small category list
   function getExpenseLargeWithSmallCategoryList() {

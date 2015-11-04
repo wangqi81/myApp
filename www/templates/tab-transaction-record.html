@@ -1,4 +1,4 @@
-<ion-view view-title="">
+<ion-view view-title="{{ viewTitle }}">
 
   <ion-nav-buttons side="right">
     <button class="button button-clear" ng-click="saveTransaction()">
@@ -6,20 +6,12 @@
     </button>
   </ion-nav-buttons>
 
-  <ion-nav-buttons side="left">
-    <button class="button" ng-click="">
-      支出
-    </button>
-    <button class="button" ng-click="">
-      收入
-    </button>
-  </ion-nav-buttons>
-
   <ion-content>
     <div class="list">
+
       <label class="item item-input">
         <span class="input-label">金额</span>
-        <input type="number" class="text-right" placeholder="0.00" ng-model="transactionRecord.amount">
+        <input type="number" id="amount" class="text-right" placeholder="0.00" ng-model="transactionRecord.amount">
       </label>
 
       <!--<ion-slide-box does-continue="true">-->
@@ -34,79 +26,55 @@
         <!--</ion-slide>-->
       <!--</ion-slide-box>-->
 
-      <ion-slide-box does-continue="true">
-        <ion-slide ng-repeat="largeCategory in largeCategoryWithSmallCategoriesList track by $index">
-          <div class="row">
-            <h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]">
-              {{ largeCategoryWithSmallCategoriesList[j].name }}
-            </h5>
-          </div>
-          <br>
-        </ion-slide>
-      </ion-slide-box>
+      <div class="row padding" ng-repeat="largeCategory in largeCategoryWithSmallCategoriesList track by $index"
+           ng-if="$index % 4 === 0" ng-init="rowRepeatIndex = $index">
+        <button class="col col-25 button button-small" ng-repeat="j in [0, 1, 2, 3]"
+                ng-class="{'button-positive': isActive(largeCategoryWithSmallCategoriesList[rowRepeatIndex + j].id)}"
+                ng-click="setActive(largeCategoryWithSmallCategoriesList[rowRepeatIndex + j].id);
+                          showSmallCategories(largeCategoryWithSmallCategoriesList[rowRepeatIndex + j]);"
+                ng-if="largeCategoryWithSmallCategoriesList[rowRepeatIndex + j].name">
+          {{ largeCategoryWithSmallCategoriesList[rowRepeatIndex + j].name }}
+        </button>
+      </div>
 
-      <!--<ion-slide-box does-continue="true">-->
-        <!--<ion-slide>-->
-          <!--<div class="row">-->
-            <!--<h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]">-->
-              <!--{{j}}-->
-            <!--</h5>-->
-          <!--</div>-->
-          <!--<div class="row">-->
-            <!--<h5 class="col col-25" ng-repeat="j in [0, 1, 2, 3]">-->
-              <!--{{j}}-->
-            <!--</h5>-->
-          <!--</div>-->
-          <!--<br>-->
-        <!--</ion-slide>-->
-        <!--<ion-slide>-->
-          <!--<div class="row">-->
-            <!--<h5 class="col col-25" ng-repeat="i in [0, 1, 2, 3]">-->
-              <!--{{i+10}}-->
-            <!--</h5>-->
-          <!--</div>-->
-          <!--<br>-->
-        <!--</ion-slide>-->
-        <!--<ion-slide>-->
-          <!--<div class="row">-->
-            <!--<h5 class="col col-25 ng-binding">-->
-              <!--abc-->
-            <!--</h5><h5 class="col col-25 ng-binding">-->
-            <!--零食烟酒-->
-          <!--</h5><h5 class="col col-25 ng-binding">-->
-            <!--交通-->
-          <!--</h5><h5 class="col col-25 ng-binding">-->
-            <!--汽车-->
-          <!--</h5>-->
-          <!--</div>-->
-          <!--<br>-->
-        <!--</ion-slide>-->
-      <!--</ion-slide-box>-->
-      <!--<label class="item item-input">-->
-        <!--<span class="input-label">分类</span>-->
-        <!--<input type="text" placeholder="分类" ng-model="transactionRecord.category">-->
-      <!--</label>-->
-      <label class="item item-input">
-        <span class="input-label">日期</span>/
-        <input type="date" placeholder="日期" ng-model="transactionRecord.date">
-      </label>
       <label class="item item-input">
         <span class="input-label">备注</span>
         <input type="text" placeholder="备注" ng-model="transactionRecord.memo">
       </label>
-      <label class="item item-input">
-        <span class="input-label">币种</span>
-        <input type="text" placeholder="币种" ng-model="transactionRecord.currency">
-      </label>
-      <label class="item ">
-        <input type="checkbox" placeholder="可报销" ng-model="transactionRecord.canReimburse">
-        可报销
-      </label>
+
+      <div class="row row-center">
+
+        <div class="col col-50">
+          <label class="" ng-if="transactionRecord.transactionType === 'Expense'">
+            <input type="checkbox" ng-model="transactionRecord.canReimburse" ng-checked="transactionRecord.canReimburse">
+            可报销
+          </label>
+        </div>
+
+        <div class="col col-25 text-right">
+          <button class="button button-small button-outline button-balanced" ng-click="showCurrencyList()">
+            {{ transactionRecord.currency }}
+          </button>
+        </div>
+
+        <div class="col col-25">
+          <ionic-datepicker input-obj="transactionDatePickerObject">
+            <button class="button button-small button-outline button-balanced">
+              {{ transactionDatePickerObject.inputDate | date: 'yyyy/MM/dd' }}
+            </button>
+          </ionic-datepicker>
+        </div>
+
+      </div>
+
     </div>
+
     <div class="padding">
-      <button type="submit" id="save" class="button button-block button-positive" ng-click="saveTransaction()">保存
+      <button type="submit" id="save" class="button button-block button-positive" ng-click="saveTransaction()">
+        保存
       </button>
     </div>
+
   </ion-content>
 </ion-view>
 
